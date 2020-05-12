@@ -2267,11 +2267,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Project\\StoreManagement\\StoreManagement.csproj",
+      "projectUniqueName": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
       "projectName": "StoreManagement",
-      "projectPath": "c:\\Project\\StoreManagement\\StoreManagement.csproj",
+      "projectPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
       "packagesPath": "C:\\Users\\Nilamani\\.nuget\\packages\\",
-      "outputPath": "c:\\Project\\StoreManagement\\obj\\",
+      "outputPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

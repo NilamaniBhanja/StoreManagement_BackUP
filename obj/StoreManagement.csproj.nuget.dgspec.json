@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Project\\StoreManagement\\StoreManagement.csproj": {}
+    "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj": {}
   },
   "projects": {
-    "C:\\Project\\StoreManagement\\StoreManagement.csproj": {
+    "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\StoreManagement\\StoreManagement.csproj",
+        "projectUniqueName": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
         "projectName": "StoreManagement",
-        "projectPath": "C:\\Project\\StoreManagement\\StoreManagement.csproj",
+        "projectPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
         "packagesPath": "C:\\Users\\Nilamani\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\StoreManagement\\obj\\",
+        "outputPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

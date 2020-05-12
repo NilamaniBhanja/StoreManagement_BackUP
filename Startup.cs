@@ -16,7 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using StoreManagement.Core;
 using StoreManagement.Models;
+using StoreManagement.Persistence;
 
 namespace StoreManagement
 {
@@ -33,6 +35,9 @@ namespace StoreManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<IRoleRepository, RoleRepository>();  
+            
             //Connection String Configuration
             services.AddDbContext<StoreContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("Default"))
