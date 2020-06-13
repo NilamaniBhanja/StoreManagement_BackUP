@@ -34,10 +34,21 @@ namespace StoreManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+       {
+           options.AddDefaultPolicy(
+               builder =>
+               {
+                   builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+               });
+       });
+
             services.AddControllers();
 
-            services.AddScoped<IRoleRepository, RoleRepository>();  
-            
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
             //Connection String Configuration
             services.AddDbContext<StoreContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("Default"))
@@ -89,7 +100,7 @@ namespace StoreManagement
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 

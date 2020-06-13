@@ -39,6 +39,8 @@ namespace StoreManagement.ViewModels
     //  Change Password
     public class ChangePassword
     {
+        // [Required]
+        // public Guid UserId { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [StringLength(15, MinimumLength = 6)]

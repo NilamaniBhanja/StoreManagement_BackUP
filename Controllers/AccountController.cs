@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Models;
 using StoreManagement.ViewModels;
 using StoreManagement.Service;
+using System.Linq;
 
 namespace StoreManagement.Controllers
 {
@@ -65,5 +66,15 @@ namespace StoreManagement.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             return Ok(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePassword model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            IdentityUser user =await _userManager.GetUserAsync(User);            
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            return Ok(result);
+        }
+
     }
 }
