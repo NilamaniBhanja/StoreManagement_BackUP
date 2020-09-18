@@ -10,8 +10,10 @@ namespace StoreManagementAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; } 
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
         [Required]
+        [StringLength(250)]
         public string Description { get; set; }
     }
 }
