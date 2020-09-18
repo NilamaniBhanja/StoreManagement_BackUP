@@ -16,9 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using StoreManagement.Core;
+using StoreManagement.Core.Data;
 using StoreManagement.Models;
-using StoreManagement.Persistence;
+using StoreManagement.Repository;
+using StoreManagement.Repository.IRepository;
 
 namespace StoreManagement
 {
@@ -50,10 +51,10 @@ namespace StoreManagement
             services.AddScoped<IRoleRepository, RoleRepository>();
 
             //Connection String Configuration
-            services.AddDbContext<StoreContext>(
+            services.AddDbContext<StoreDbContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("Default"))
             );
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<StoreContext>()
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<StoreDbContext>()
             .AddDefaultTokenProviders();
 
 
@@ -96,9 +97,8 @@ namespace StoreManagement
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //loggerFactory.AddFile("Logs/mylog-{Date}.txt");
             //app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();

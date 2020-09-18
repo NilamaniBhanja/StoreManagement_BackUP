@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StoreManagement.Core;
 using StoreManagement.Core.Models;
+using StoreManagement.Repository.IRepository;
 using StoreManagement.ViewModels;
 
 namespace StoreManagement.Controllers
