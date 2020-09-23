@@ -1,3 +1,5 @@
 Migrations/20200922172420_InitialDB.cs
 Migrations/20200922172420_InitialDB.Designer.cs
 Migrations/StoreDbContextModelSnapshot.cs
+Migrations/20200923145337_Brands.cs
+Migrations/20200923145337_Brands.Designer.cs

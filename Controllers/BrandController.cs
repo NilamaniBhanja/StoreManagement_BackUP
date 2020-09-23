@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StoreManagement.Core.Data;
+using StoreManagementAPI.Models;
+using StoreManagementAPI.Repository.IRepository;
 
 namespace StoreManagementAPI.Controllers
 {
@@ -7,67 +9,70 @@ namespace StoreManagementAPI.Controllers
     [ApiController]
     public class BrandController : ControllerBase
     {
-        private readonly StoreDbContext _dbContext;
-        public BrandController(StoreDbContext dbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        public BrandController(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> Get()
-        // {
-        //     var model = await _dbContext.Brands.ToListAsync();
-        //     return Ok(model);
-        // }
-        // [HttpGet("{id}")]
-        // public async Task<IActionResult> Get(int id)
-        // {
-        //     var result = await this._dbContext.Brands.FindAsync(id);
-        //     if (result == null)
-        //         return NotFound();
-        //     return Ok(result);
-        // }
-        // [HttpPost]
-        // public async Task<IActionResult> Post([FromBody] Brand model)
-        // {
-        //     if (!ModelState.IsValid)
-        //         return BadRequest(ModelState);
-        //     var result = await this._dbContext.Brands.AnyAsync(x => x.Name == model.Name);
-        //     if (result)
-        //     {
-        //         ModelState.AddModelError("errors", model.Name + " brand is already exist.");
-        //         return BadRequest(ModelState);
-        //     }
-        //     this._dbContext.Brands.Add(model);
-        //     var res = await this._dbContext.SaveChangesAsync();
- 
-        //     return Ok(res);
-        // }
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> Put(int id, [FromBody] Brand model)
-        // {
-        //     if (!ModelState.IsValid)
-        //         return BadRequest(ModelState);
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var model = await _unitOfWork.Brand.GetAllAsync();
+            return Ok(model);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var result = await _unitOfWork.Brand.GetAsync(id);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
 
-        //     var result = await this._dbContext.Brands.FindAsync(id);
-        //     if (result == null)
-        //         return NotFound(new { message = "Brands : "+id+ " not found" });
-        //     // this._dbContext.Brands.Attach(model);
-        //     // this._dbContext.Entry(model).State = EntityState.Modified;
-        //      model.id=id;
-        //     this._dbContext.Entry(result).CurrentValues.SetValues(model);
-        //     var res = await this._dbContext.SaveChangesAsync();
-        //     return Ok(res);
-        // }
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> Delete(int id)
-        // {
-        //     var brandmodel = await this._dbContext.Brands.FindAsync(id);
-        //     if (brandmodel == null)
-        //         return NotFound();
-        //      this._dbContext.Brands.Remove(brandmodel);
-        //     var result = await this._dbContext.SaveChangesAsync();
-        //     return Ok(result);
-        // }
+        [HttpPost]
+        
+        public async Task<IActionResult> Post(Brand model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = await _unitOfWork.Brand.GetFirstOrDefaultAsync(x => x.Name == model.Name);
+            if (result != null)
+            {
+                ModelState.AddModelError("errors", model.Name + " brand is already exist.");
+                return BadRequest(ModelState);
+            }
+            await _unitOfWork.Brand.AddAsync(model);
+            _unitOfWork.Save();
+            return Ok();
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Brand model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _unitOfWork.Brand.GetAsync(id);
+            if (result == null)
+                return NotFound(new { message = "Brands : "+id+ " not found" });
+            
+             model.Id=id;
+            _unitOfWork.Brand.Update(model);
+            _unitOfWork.Save();
+            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var objFromDb = await _unitOfWork.Brand.GetAsync(id);
+            if (objFromDb == null)
+            {
+                return Ok(new { success = false, message = "Error while deleting" });
+            }
+            await _unitOfWork.Brand.RemoveAsync(objFromDb);
+            _unitOfWork.Save();
+
+            return Ok(new { success = true, message = "Delete Successful" });
+        }
     }
 }

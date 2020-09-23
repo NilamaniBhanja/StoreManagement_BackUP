@@ -20,6 +20,8 @@ using StoreManagement.Core.Data;
 using StoreManagement.Models;
 using StoreManagement.Repository;
 using StoreManagement.Repository.IRepository;
+using StoreManagementAPI.Repository;
+using StoreManagementAPI.Repository.IRepository;
 
 namespace StoreManagement
 {
@@ -49,7 +51,7 @@ namespace StoreManagement
             services.AddControllers();
 
             services.AddScoped<IRoleRepository, RoleRepository>();
-
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Connection String Configuration
             services.AddDbContext<StoreDbContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("Default"))
