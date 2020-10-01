@@ -1,79 +1,86 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using StoreManagement.Core.Data;
-using StoreManagement.Models;
 using StoreManagementAPI.Models;
+using StoreManagementAPI.Repository.IRepository;
 
 namespace StoreManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MeasurementController : ControllerBase
-    {
-        private readonly StoreDbContext _dbContext;
-       // private readonly ILogger<MeasurementController> _log;
-        public MeasurementController(StoreDbContext dbContext)//, ILogger<MeasurementController> log)
+   {
+        private readonly IUnitOfWork _unitOfWork;
+        public MeasurementController(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
-           // _log=log;
+            _unitOfWork = unitOfWork;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> Get()
-        // {
-        //     _log.LogInformation("Hello, world!");
-        //     var model = await _dbContext.Measurements.ToListAsync();
-        //     return Ok(model);
-        // }
-        // [HttpGet("{id}")]
-        // public async Task<IActionResult> Get(int id)
-        // {
-        //     var result = await this._dbContext.Measurements.FindAsync(id);
-        //     if (result == null)
-        //         return NotFound();
-        //     return Ok(result);
-        // }
-        // [HttpPost]
-        // public async Task<IActionResult> Post([FromBody] Measurement model)
-        // {
-        //     if (!ModelState.IsValid)
-        //         return BadRequest(ModelState);
-        //     var result = await this._dbContext.Measurements.AnyAsync(x => x.Name == model.Name);
-        //     if (result)
-        //     {
-        //         ModelState.AddModelError("errors", model.Name + " measurement is already exist.");
-        //         return BadRequest(ModelState);
-        //     }
-        //     this._dbContext.Measurements.Add(model);
-        //     var res = await this._dbContext.SaveChangesAsync();
- 
-        //     return Ok(res);
-        // }
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> Put(int id, [FromBody] Measurement model)
-        // {
-        //     if (!ModelState.IsValid)
-        //         return BadRequest(ModelState);
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var model = await _unitOfWork.Measurement.GetAllAsync();
+            return Ok(model);
+        }
 
-        //     var result = await this._dbContext.Measurements.FindAsync(id);
-        //     if (result == null)
-        //         return NotFound(new { message = "Measurements : "+id+ " not found" });
-        //     model.id=id;
-        //     this._dbContext.Entry(result).CurrentValues.SetValues(model);
-        //     var res = await this._dbContext.SaveChangesAsync();
-        //     return Ok(res);
-        // }
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> Delete(int id)
-        // {
-        //     var Measurementmodel = await this._dbContext.Measurements.FindAsync(id);
-        //     if (Measurementmodel == null)
-        //         return NotFound();
-        //      this._dbContext.Measurements.Remove(Measurementmodel);
-        //     var result = await this._dbContext.SaveChangesAsync();
-        //     return Ok(result);
-        // }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var result = await _unitOfWork.Measurement.GetAsync(id);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Measurement model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = await _unitOfWork.Measurement.GetFirstOrDefaultAsync(x => x.Name == model.Name);
+            if (result != null)
+            {
+                ModelState.AddModelError("Name", model.Name + " measurement is already exist.");
+                return BadRequest(ModelState);
+            }
+            await _unitOfWork.Measurement.AddAsync(model);
+            _unitOfWork.Save();
+            return Ok(new { success = true, message = "Data created successfully" });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Measurement model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _unitOfWork.Measurement.GetAsync(id);
+            if (result == null)
+                return NotFound(new { message = "Measurements : " + id + " not found" });
+
+            result = await _unitOfWork.Measurement.GetFirstOrDefaultAsync(a => a.Id != id && a.Name == model.Name);
+            if (result != null)
+            {
+                ModelState.AddModelError("Name", model.Name + " measurement is already exist.");
+                return BadRequest(ModelState);
+            }
+            model.Id = id;
+            _unitOfWork.Measurement.Update(model);
+            _unitOfWork.Save();
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var objFromDb = await _unitOfWork.Measurement.GetAsync(id);
+            if (objFromDb == null)
+            {
+                return Ok(new { success = false, message = "Error while deleting" });
+            }
+            await _unitOfWork.Measurement.RemoveAsync(objFromDb);
+            _unitOfWork.Save();
+
+            return Ok(new { success = true, message = "Delete Successful" });
+        }
     }
 }
