@@ -21,6 +21,7 @@ namespace StoreManagementAPI.Controllers
             var model = await _unitOfWork.Brand.GetAllAsync();
             return Ok(model);
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -31,7 +32,6 @@ namespace StoreManagementAPI.Controllers
         }
 
         [HttpPost]
-        
         public async Task<IActionResult> Post(Brand model)
         {
             if (!ModelState.IsValid)
@@ -39,13 +39,14 @@ namespace StoreManagementAPI.Controllers
             var result = await _unitOfWork.Brand.GetFirstOrDefaultAsync(x => x.Name == model.Name);
             if (result != null)
             {
-                ModelState.AddModelError("errors", model.Name + " brand is already exist.");
+                ModelState.AddModelError("Name", model.Name + " brand is already exist.");
                 return BadRequest(ModelState);
             }
             await _unitOfWork.Brand.AddAsync(model);
             _unitOfWork.Save();
-            return Ok();
+            return Ok(new { success = true, message = "Data created successfully" });
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Brand model)
         {
@@ -54,13 +55,20 @@ namespace StoreManagementAPI.Controllers
 
             var result = await _unitOfWork.Brand.GetAsync(id);
             if (result == null)
-                return NotFound(new { message = "Brands : "+id+ " not found" });
-            
-             model.Id=id;
+                return NotFound(new { message = "Brands : " + id + " not found" });
+
+            result = await _unitOfWork.Brand.GetFirstOrDefaultAsync(a => a.Id != id && a.Name == model.Name);
+            if (result != null)
+            {
+                ModelState.AddModelError("Name", model.Name + " brand is already exist.");
+                return BadRequest(ModelState);
+            }
+            model.Id = id;
             _unitOfWork.Brand.Update(model);
             _unitOfWork.Save();
             return Ok();
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
