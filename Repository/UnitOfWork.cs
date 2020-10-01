@@ -8,20 +8,20 @@ namespace StoreManagementAPI.Repository
         private readonly StoreDbContext _db;
         public IBrandRepository Brand { get; private set; }
         public IMeasurementRepository Measurement { get; private set; }
+        public IAddressRepository Address { get; private set; }
+         public IStoreRepository Store { get; private set; }
         public UnitOfWork(StoreDbContext db)
         {
             _db = db;
             Brand = new BrandRepository(_db);
             Measurement = new MeasurementRepository(_db);
+            Address = new AddressRepository(_db);
+            Store = new StoreRepository(_db);
         }
-
-
-
         public void Dispose()
         {
             _db.Dispose();
         }
-
         public void Save()
         {
             _db.SaveChanges();

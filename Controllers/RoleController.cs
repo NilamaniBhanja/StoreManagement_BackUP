@@ -38,7 +38,7 @@ namespace StoreManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RoleViewModel model)
+        public async Task<IActionResult> Post([FromBody] RoleVM model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -58,7 +58,7 @@ namespace StoreManagement.Controllers
             return Ok(result);
         }
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Put(string id, [FromBody] RoleViewModel model)
+        public async Task<IActionResult> Put(string id, [FromBody] RoleVM model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StoreManagement.ViewModels
 {
-    public class AccountViewModel
+    public class AccountVM
     {
 
     }

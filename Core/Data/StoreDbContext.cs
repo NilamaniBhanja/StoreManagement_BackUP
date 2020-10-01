@@ -11,6 +11,8 @@ namespace StoreManagement.Core.Data
         }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
+        public DbSet<Store> Store { get; set; }
+        public DbSet<Address> Address { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

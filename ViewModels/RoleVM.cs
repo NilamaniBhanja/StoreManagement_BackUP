@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StoreManagement.ViewModels
 {
-    public class RoleViewModel
+    public class RoleVM
     {
         public string Id { get; set; }
         [Required]

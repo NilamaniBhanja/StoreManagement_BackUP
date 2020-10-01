@@ -5,3 +5,5 @@ Migrations/20200923145337_Brands.cs
 Migrations/20200923145337_Brands.Designer.cs
 Migrations/20201001060708_AddMeasurements.cs
 Migrations/20201001060708_AddMeasurements.Designer.cs
+Migrations/20201001101330_StoreandAddress.cs
+Migrations/20201001101330_StoreandAddress.Designer.cs
