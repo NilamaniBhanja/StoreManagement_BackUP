@@ -18,8 +18,8 @@ namespace StoreManagementAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var model = await _unitOfWork.Brand.GetAllAsync();
-            return Ok(model);
+            var result = await _unitOfWork.Brand.GetAllAsync();
+            return Ok(new { success = true, data = result });
         }
 
         [HttpGet("{id}")]
@@ -27,8 +27,8 @@ namespace StoreManagementAPI.Controllers
         {
             var result = await _unitOfWork.Brand.GetAsync(id);
             if (result == null)
-                return NotFound();
-            return Ok(result);
+                return NotFound(new { success = false, message = "Brand details exist in our system." });
+            return Ok(new { success = true, data = result });
         }
 
         [HttpPost]
@@ -47,26 +47,25 @@ namespace StoreManagementAPI.Controllers
             return Ok(new { success = true, message = "Data created successfully" });
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Brand model)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Brand model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _unitOfWork.Brand.GetAsync(id);
+            var result = await _unitOfWork.Brand.GetAsync(model.Id);
             if (result == null)
-                return NotFound(new { message = "Brands : " + id + " not found" });
+                return NotFound(new { message = "Brands : " + model.Id + " not found" });
 
-            result = await _unitOfWork.Brand.GetFirstOrDefaultAsync(a => a.Id != id && a.Name == model.Name);
+            result = await _unitOfWork.Brand.GetFirstOrDefaultAsync(a => a.Id != model.Id && a.Name == model.Name);
             if (result != null)
             {
                 ModelState.AddModelError("Name", model.Name + " brand is already exist.");
                 return BadRequest(ModelState);
             }
-            model.Id = id;
             _unitOfWork.Brand.Update(model);
             _unitOfWork.Save();
-            return Ok();
+            return Ok(new { success = true, message = "Data updated successfully" });
         }
 
         [HttpDelete("{id}")]
@@ -74,13 +73,12 @@ namespace StoreManagementAPI.Controllers
         {
             var objFromDb = await _unitOfWork.Brand.GetAsync(id);
             if (objFromDb == null)
-            {
-                return Ok(new { success = false, message = "Error while deleting" });
-            }
+                return NotFound(new { success = false, message = "Brand details exist in our system." });
+            
             await _unitOfWork.Brand.RemoveAsync(objFromDb);
             _unitOfWork.Save();
 
-            return Ok(new { success = true, message = "Delete Successful" });
+            return Ok(new { success = true, message = "Data deleted successfully" });
         }
     }
 }

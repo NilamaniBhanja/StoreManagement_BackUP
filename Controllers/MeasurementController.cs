@@ -8,7 +8,7 @@ namespace StoreManagementAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class MeasurementController : ControllerBase
-   {
+    {
         private readonly IUnitOfWork _unitOfWork;
         public MeasurementController(IUnitOfWork unitOfWork)
         {
@@ -18,8 +18,8 @@ namespace StoreManagementAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var model = await _unitOfWork.Measurement.GetAllAsync();
-            return Ok(model);
+            var result = await _unitOfWork.Measurement.GetAllAsync();
+            return Ok(new { success = true, data = result });
         }
 
         [HttpGet("{id}")]
@@ -27,8 +27,8 @@ namespace StoreManagementAPI.Controllers
         {
             var result = await _unitOfWork.Measurement.GetAsync(id);
             if (result == null)
-                return NotFound();
-            return Ok(result);
+                return NotFound(new { success = false, message = "Measurement details exist in our system." });
+            return Ok(new { success = true, data = result });
         }
 
         [HttpPost]
@@ -47,26 +47,25 @@ namespace StoreManagementAPI.Controllers
             return Ok(new { success = true, message = "Data created successfully" });
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Measurement model)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] Measurement model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _unitOfWork.Measurement.GetAsync(id);
+            var result = await _unitOfWork.Measurement.GetAsync(model.Id);
             if (result == null)
-                return NotFound(new { message = "Measurements : " + id + " not found" });
+                return NotFound(new { message = "Measurements : " + model.Id + " not found" });
 
-            result = await _unitOfWork.Measurement.GetFirstOrDefaultAsync(a => a.Id != id && a.Name == model.Name);
+            result = await _unitOfWork.Measurement.GetFirstOrDefaultAsync(a => a.Id != model.Id && a.Name == model.Name);
             if (result != null)
             {
                 ModelState.AddModelError("Name", model.Name + " measurement is already exist.");
                 return BadRequest(ModelState);
             }
-            model.Id = id;
             _unitOfWork.Measurement.Update(model);
             _unitOfWork.Save();
-            return Ok();
+            return Ok(new { success = true, message = "Data updated successfully" });
         }
 
         [HttpDelete("{id}")]
@@ -74,13 +73,11 @@ namespace StoreManagementAPI.Controllers
         {
             var objFromDb = await _unitOfWork.Measurement.GetAsync(id);
             if (objFromDb == null)
-            {
-                return Ok(new { success = false, message = "Error while deleting" });
-            }
+                return NotFound(new { success = false, message = "Measurement details exist in our system." });
             await _unitOfWork.Measurement.RemoveAsync(objFromDb);
             _unitOfWork.Save();
 
-            return Ok(new { success = true, message = "Delete Successful" });
+            return Ok(new { success = true, message = "Data deleted successfully" });
         }
     }
 }

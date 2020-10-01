@@ -74,9 +74,7 @@ namespace StoreManagementAPI.Controllers
         {
             var objFromDb = await _unitOfWork.Store.GetAsync(id);
             if (objFromDb == null)
-            {
                 return NotFound(new { success = false, message = "Store details exist in our system." });
-            }
             await _unitOfWork.Store.RemoveAsync(objFromDb);
             _unitOfWork.Save();
 
