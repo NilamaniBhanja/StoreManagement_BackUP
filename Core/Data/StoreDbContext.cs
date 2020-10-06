@@ -12,7 +12,7 @@ namespace StoreManagement.Core.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
-        // public DbSet<Address> Address { get; set; }
+        public DbSet<Category> Category { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);            

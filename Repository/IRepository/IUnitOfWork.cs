@@ -8,6 +8,7 @@ namespace StoreManagementAPI.Repository.IRepository
         IMeasurementRepository Measurement { get; }
         IAddressRepository Address { get; }
         ISupplierRepository Supplier { get; }
+        ICategoryRepository Category {get;}
         void Save();
     }
 }

@@ -9,3 +9,5 @@ Migrations/20201001101330_StoreandAddress.cs
 Migrations/20201001101330_StoreandAddress.Designer.cs
 Migrations/20201006110502_AddSupplier.cs
 Migrations/20201006110502_AddSupplier.Designer.cs
+Migrations/20201006131759_AddCategory.cs
+Migrations/20201006131759_AddCategory.Designer.cs
