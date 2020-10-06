@@ -34,10 +34,16 @@ namespace StoreManagementAPI.Models
         [StringLength(10)]
         [Display(Name = "Mobile Number")]
         public string MobileNo { get; set; }
-       
+
         [StringLength(20)]
         [Display(Name = "Land Line Number")]
         public string LandLine { get; set; }
+        [Required]
+        [Display(Name = "Supplier ID")]
+        public int SupplierId { get; set; }
+
+        [ForeignKey("SupplierId")]
+        public virtual Supplier Supplier { get; set; }
 
     }
 }

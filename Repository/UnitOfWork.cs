@@ -9,14 +9,14 @@ namespace StoreManagementAPI.Repository
         public IBrandRepository Brand { get; private set; }
         public IMeasurementRepository Measurement { get; private set; }
         public IAddressRepository Address { get; private set; }
-         public IStoreRepository Store { get; private set; }
+         public ISupplierRepository Supplier { get; private set; }
         public UnitOfWork(StoreDbContext db)
         {
             _db = db;
             Brand = new BrandRepository(_db);
             Measurement = new MeasurementRepository(_db);
             Address = new AddressRepository(_db);
-            Store = new StoreRepository(_db);
+            Supplier = new SupplierRepository(_db);
         }
         public void Dispose()
         {

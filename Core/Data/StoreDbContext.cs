@@ -5,17 +5,17 @@ using StoreManagementAPI.Models;
 namespace StoreManagement.Core.Data
 {
     public class StoreDbContext : IdentityDbContext
-    {  
+    {
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
-        {            
+        {
         }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-        public DbSet<Store> Store { get; set; }
-        public DbSet<Address> Address { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
+        // public DbSet<Address> Address { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(builder);            
         }
     }
 }

@@ -7,3 +7,5 @@ Migrations/20201001060708_AddMeasurements.cs
 Migrations/20201001060708_AddMeasurements.Designer.cs
 Migrations/20201001101330_StoreandAddress.cs
 Migrations/20201001101330_StoreandAddress.Designer.cs
+Migrations/20201006110502_AddSupplier.cs
+Migrations/20201006110502_AddSupplier.Designer.cs
