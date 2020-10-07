@@ -11,3 +11,5 @@ Migrations/20201006110502_AddSupplier.cs
 Migrations/20201006110502_AddSupplier.Designer.cs
 Migrations/20201006131759_AddCategory.cs
 Migrations/20201006131759_AddCategory.Designer.cs
+Migrations/20201006141428_AddPrice.cs
+Migrations/20201006141428_AddPrice.Designer.cs

@@ -10,8 +10,8 @@ namespace StoreManagementAPI.Repository
         public IMeasurementRepository Measurement { get; private set; }
         public IAddressRepository Address { get; private set; }
         public ISupplierRepository Supplier { get; private set; }
-
         public ICategoryRepository Category { get; private set; }
+        public IProductCostRepository ProductCost { get; private set; }
         public UnitOfWork(StoreDbContext db)
         {
             _db = db;
@@ -20,6 +20,7 @@ namespace StoreManagementAPI.Repository
             Address = new AddressRepository(_db);
             Supplier = new SupplierRepository(_db);
             Category = new CategoryRepository(_db);
+            ProductCost = new ProductCostRepository(_db);
         }
         public void Dispose()
         {
