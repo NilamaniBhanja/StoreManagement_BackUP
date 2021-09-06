@@ -74,7 +74,7 @@ namespace SupplierManagementAPI.Controllers
         {
             var objFromDb = await _unitOfWork.Supplier.GetAsync(id); // .GetFirstOrDefaultAsync(a => a.Id == id, includeProperties: "Address");
             if (objFromDb == null)
-                return NotFound(new { success = false, message = "Supplier details exist in our system." });
+                return NotFound(new { success = false, message = "Supplier details does not exist in our system." });
             await _unitOfWork.Supplier.RemoveAsync(objFromDb);
             _unitOfWork.Save();
 

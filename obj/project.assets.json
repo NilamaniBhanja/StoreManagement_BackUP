@@ -2351,23 +2351,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nilamani\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
+      "projectUniqueName": "D:\\project\\SMP\\StoreManagement\\StoreManagement.csproj",
       "projectName": "StoreManagement",
-      "projectPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\StoreManagement.csproj",
-      "packagesPath": "C:\\Users\\Nilamani\\.nuget\\packages\\",
-      "outputPath": "C:\\Project\\StoreManagement\\StoreManagementAPI\\obj\\",
+      "projectPath": "D:\\project\\SMP\\StoreManagement\\StoreManagement.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "D:\\project\\SMP\\StoreManagement\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Nilamani\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -2434,7 +2430,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.412\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -44,6 +44,8 @@ namespace StoreManagementAPI.Models
 
         [ForeignKey("SupplierId")]
         public virtual Supplier Supplier { get; set; }
+        [ForeignKey("StoreId")]
+        public virtual Store Store { get; set; }
 
     }
 }

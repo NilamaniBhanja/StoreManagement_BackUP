@@ -9,6 +9,7 @@ namespace StoreManagementAPI.Repository
         public IBrandRepository Brand { get; private set; }
         public IMeasurementRepository Measurement { get; private set; }
         public IAddressRepository Address { get; private set; }
+        public IStoreRepository Store { get; private set; }
         public ISupplierRepository Supplier { get; private set; }
         public ICategoryRepository Category { get; private set; }
         public IProductCostRepository ProductCost { get; private set; }

@@ -11,6 +11,7 @@ namespace StoreManagement.Core.Data
         }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
+        public DbSet<Store> Stores { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<ProductCost> ProductCost { get; set; }
