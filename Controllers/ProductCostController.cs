@@ -51,9 +51,13 @@ namespace StoreManagementAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] ProductCost model)
         {
+            string EffectiveDate = model.EffectiveDate.HasValue ? 
+            model.EffectiveDate.Value.ToString("MM/dd/yyyy HH:mm") : null;
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (Convert.ToDateTime(model.EffectiveDate.ToString("MM/dd/yyyy HH:mm")) < Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy HH:mm")))
+
+            if (Convert.ToDateTime(EffectiveDate) < Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy HH:mm")))
             {
                 ModelState.AddModelError("EffectiveDate", "Effective Date should not be less than current date and time.");
                 return BadRequest(ModelState);

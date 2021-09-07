@@ -27,7 +27,7 @@ namespace StoreManagementAPI.Models
         public double Price100 { get; set; }
 
         [Required]
-        public DateTime EffectiveDate { get; set; }
+        public DateTime? EffectiveDate { get; set; }
         
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }

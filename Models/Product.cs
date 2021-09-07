@@ -10,7 +10,6 @@ namespace StoreManagementAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Range(1, 10000)]
         
         [Required]
         [StringLength(200)]
