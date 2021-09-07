@@ -10,6 +10,10 @@ namespace StoreManagementAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
+        public double BuyPrice { get; set; }
+        
+        [Required]
         [Range(1, 10000)]
         public double ListPrice { get; set; }
         [Required]
@@ -24,7 +28,9 @@ namespace StoreManagementAPI.Models
 
         [Required]
         public DateTime EffectiveDate { get; set; }
-
+        
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
 
     }
 }

@@ -39,3 +39,5 @@ Migrations/20210906185031_InitialStore.cs
 Migrations/20210906185031_InitialStore.Designer.cs
 obj/Debug/netcoreapp3.1/StoreManagement.assets.cache
 obj/Debug/netcoreapp3.1/StoreManagement.AssemblyInfo.cs
+Migrations/20210907135136_ManageProduct.cs
+Migrations/20210907135136_ManageProduct.Designer.cs

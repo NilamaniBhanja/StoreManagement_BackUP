@@ -24,7 +24,8 @@ namespace StoreManagementAPI.Models
         [Display(Name = "Business Type")]
         public string BusinessType { get; set; } // Hardware, Medical Supplier etc
 
-
+        // [ForeignKey("ProductId")]
+        // public virtual Product Product { get; set; }
         public Address Address { get; set; }
 
         public Supplier()
