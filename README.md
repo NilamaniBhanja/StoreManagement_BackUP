@@ -1,4 +1,4 @@
-# StoreManagement <br/> <br/>
+# StoreManagement
 
 dotnet ef migrations add InitialCreate <br/>
 dotnet ef database update <br/> <br/>
