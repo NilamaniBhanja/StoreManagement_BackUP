@@ -10,6 +10,7 @@ namespace StoreManagement.Core.Data
         {
         }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
